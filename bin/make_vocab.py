@@ -6,6 +6,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
 
 from utils import tools
+from utils.tools import my_getattr
 
 
 def main(args):
@@ -25,12 +26,13 @@ def main(args):
                     else:
                         vocab[token] = 1
     sorted_vocab = sorted(vocab, key=vocab.get, reverse=True)
-    vocab_fname = args.vocab_fname
-    vocab_url_dir = os.path.dirname(vocab_fname)
+    vocab_url_dir = os.path.dirname(args.vocab_fname)
     if not os.path.exists(vocab_url_dir):
         os.makedirs(vocab_url_dir)
-    with open(vocab_fname, 'w', encoding=args.encoding) as out_file:
-        out_file.write('<S>\n</S>\n<UNK>\n')
+    with open(args.vocab_fname, 'w', encoding=args.encoding) as out_file:
+        out_file.write(args.bos + '\n')
+        out_file.write(args.eos + '\n')
+        out_file.write(args.unk + '\n')
         for token in sorted_vocab:
             out_file.write(token)
             if args.debug:
@@ -44,7 +46,15 @@ if __name__ == '__main__':
     parser.add_argument('--vocab_fname', type=str, metavar='STR', required=True, help='vocabulary file')
     parser.add_argument('--encoding', type=str, metavar='STR', help='open and save encoding')
     parser.add_argument('--debug', action='store_true', help='whether to show more info for debug')
+    parser.add_argument('--bos', type=str, metavar='STR', help='special symbol for begin of sen')
+    parser.add_argument('--eos', type=str, metavar='STR', help='special symbol for end of sen')
+    parser.add_argument('--unk', type=str, metavar='STR', help='special symbol for unknown token')
+
     args = parser.parse_args()
-    args.encoding = getattr(args, 'encoding', 'utf-8')
+    args.encoding = my_getattr(args, 'encoding', 'utf-8')
     args.debug = getattr(args, 'debug', False)
+    args.bos = my_getattr(args, 'bos', '<S>')
+    args.eos = my_getattr(args, 'eos', '</S>')
+    args.unk = my_getattr(args, 'unk', '<UNK>')
+
     main(args)

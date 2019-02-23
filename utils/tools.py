@@ -18,3 +18,13 @@ def get_fnames_under_path(path):
             continue
         fnames.add(fname)
     return fnames
+
+
+def my_getattr(obj, attr, default):
+    """
+    if not obj.attr:
+        return default
+    else:
+        return obj.attr
+    """
+    return default if not obj.__getattribute__(attr) else obj.__getattribute__(attr)
