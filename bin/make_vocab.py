@@ -32,7 +32,10 @@ def main(args):
     with open(vocab_fname, 'w', encoding=args.encoding) as out_file:
         out_file.write('<S>\n</S>\n<UNK>\n')
         for token in sorted_vocab:
-            out_file.write(token+'\n')
+            out_file.write(token)
+            if args.debug:
+                out_file.write(' => ' + str(vocab.get(token)))
+            out_file.write('\n')
 
 
 if __name__ == '__main__':
