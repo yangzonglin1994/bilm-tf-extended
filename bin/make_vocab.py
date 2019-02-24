@@ -25,6 +25,8 @@ def main(args):
                         vocab[token] += 1
                     else:
                         vocab[token] = 1
+    all_tokens_cnt = sum(map(lambda x: x[1], list(vocab.items())))
+    print('all training data tokens count:', all_tokens_cnt)
     sorted_vocab = sorted(vocab, key=vocab.get, reverse=True)
     vocab_url_dir = os.path.dirname(args.vocab_fname)
     if not os.path.exists(vocab_url_dir):
