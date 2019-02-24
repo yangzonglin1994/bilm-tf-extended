@@ -42,8 +42,8 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--train_data', type=str, metavar='STR', required=True, help='train data')
-    parser.add_argument('--vocab_fname', type=str, metavar='STR', required=True, help='vocabulary file')
+    parser.add_argument('--train-data', type=str, metavar='STR', required=True, help='train data')
+    parser.add_argument('--vocab-fname', type=str, metavar='STR', required=True, help='vocabulary file')
     parser.add_argument('--encoding', type=str, metavar='STR', help='open and save encoding')
     parser.add_argument('--debug', action='store_true', help='whether to show more info for debug')
     parser.add_argument('--bos', type=str, metavar='STR', help='special symbol for begin of sen')
