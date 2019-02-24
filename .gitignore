@@ -1,9 +1,11 @@
-
+# path-to-ignore
 bilm.egg-info/
 dist/
 build/
+.idea/
+checkpoints/
+bin/processed/
+
 
 *.pyc
 *.swp
-
-
