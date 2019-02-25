@@ -26,9 +26,18 @@ case "$operation" in
     # like 2019-02-24_21:08:22
     CHECKPOINT_DIR=checkpoints/bilm-${dataset}_`date +%F_%T`
     mkdir -p ${CHECKPOINT_DIR}
-    python bin/train_elmo.py --train_prefix=bin/processed/${dataset}-train/* \
-    --vocab_file=bin/processed/${dataset}.vocab \
-    --save_dir=${CHECKPOINT_DIR}/
+    export CUDA_VISIBLE_DEVICES=0
+    python bin/train_elmo.py \
+        --train_prefix=bin/processed/${dataset}-train/* \
+        --vocab_file=bin/processed/${dataset}.vocab \
+        --save_dir=${CHECKPOINT_DIR}/
+    ;;
+'eval_elmo')
+    export CUDA_VISIBLE_DEVICES=0
+    python bin/run_test.py \
+        --test_prefix=bin/processed/${dataset}-test/* \
+        --vocab_file=bin/processed/${dataset}.vocab \
+        --save_dir=checkpoints/bilm-ptb_2019-02-24_23:55:29
     ;;
 *)
     echo 'error'
