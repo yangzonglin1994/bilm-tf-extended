@@ -33,8 +33,10 @@ def main(args):
         os.makedirs(args.split_train_dir)
     if not os.path.exists(args.split_heldout_dir):
         os.makedirs(args.split_heldout_dir)
-    tools.del_file_under_path(args.split_train_dir)
-    tools.del_file_under_path(args.split_heldout_dir)
+    if args.test_samples_num != total_train_line_cnt:
+        tools.del_file_under_path(args.split_train_dir)
+    if args.test_samples_num != 0:
+        tools.del_file_under_path(args.split_heldout_dir)
 
     split_train_files = []
     for i in range(args.split_train_num):
