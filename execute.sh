@@ -12,11 +12,13 @@ dataset=$2
 
 case "$operation" in
 'make_vocab')
-    python bin/make_vocab.py --train-data=data/${dataset}/${dataset}-train.bpe \
+    python bin/make_vocab.py \
+    --train-data=data/${dataset}/${dataset}-train.bpe \
     --vocab-fname bin/processed/${dataset}.vocab
     ;;
 'prepare_data')
-    python bin/prepare_data.py --train-data=data/${dataset}/${dataset}-test.bpe \
+    python bin/prepare_data.py \
+    --train-data=data/${dataset}/${dataset}-test.bpe \
     --split-train-dir=bin/processed/${dataset}-train/ \
     --split-heldout-dir=bin/processed/${dataset}-test/ \
     --split-train-num=0 --split-heldout-num=3 \
@@ -38,6 +40,15 @@ case "$operation" in
         --test_prefix=bin/processed/${dataset}-test/* \
         --vocab_file=bin/processed/${dataset}.vocab \
         --save_dir=checkpoints/bilm-ptb_2019-02-24_23:55:29
+    ;;
+'dump_weights')
+    SAVE_DIR=checkpoints/bilm-ptb_2019-02-24_23:55:29
+    OUT_DIR=bin/weights-options
+    mkdir -p ${OUT_DIR}
+    python bin/dump_weights.py \
+        --save_dir ${SAVE_DIR} \
+        --outfile ${OUT_DIR}/${dataset}-weights.hdf5
+    cp ${SAVE_DIR}/options.json ${OUT_DIR}/
     ;;
 *)
     echo 'error'
