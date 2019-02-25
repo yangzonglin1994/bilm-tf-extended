@@ -16,11 +16,11 @@ case "$operation" in
     --vocab-fname bin/processed/${dataset}.vocab
     ;;
 'prepare_data')
-    python bin/prepare_data.py --train-data=data/${dataset}/${dataset}-train.bpe \
+    python bin/prepare_data.py --train-data=data/${dataset}/${dataset}-test.bpe \
     --split-train-dir=bin/processed/${dataset}-train/ \
     --split-heldout-dir=bin/processed/${dataset}-test/ \
-    --split-train-num=0 --split-heldout-num=4 \
-    --test-samples-num=40
+    --split-train-num=0 --split-heldout-num=3 \
+    --test-samples-num=3761
     ;;
 'train_elmo')
     # like 2019-02-24_21:08:22
