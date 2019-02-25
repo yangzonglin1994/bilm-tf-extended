@@ -5,6 +5,7 @@ build/
 .idea/
 checkpoints/
 bin/processed/
+bin/weights-options
 
 
 *.pyc
