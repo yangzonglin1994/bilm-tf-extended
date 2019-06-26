@@ -12,11 +12,11 @@ def main(args):
     vocab = load_vocab(args.vocab_file, 50)
 
     # define the options
-    batch_size = 128  # batch size for each GPU
-    n_gpus = 3
+    batch_size = 32  # batch size for each GPU
+    n_gpus = 1
 
-    # number of tokens in training data (this for 1B Word Benchmark)
-    n_train_tokens = 768648884
+    # number of tokens in training data (this for PTB corpus)
+    n_train_tokens = 1097499
 
     options = {
      'bidirectional': True,
